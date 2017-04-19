@@ -1,0 +1,12 @@
+module.exports={
+	instruments:{
+		"piano":"ti-ta-ti",
+		"trumpet":"pouet",
+		"flute":"trulu",
+		"violin":"gzi-gzi",
+		"drum":"boum-boum"
+	},
+	multicast:"10.27.3.2",
+	port:1234,
+    multiTTL:128
+}
