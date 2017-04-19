@@ -4,17 +4,21 @@ pipeline {
 
     stage('Killing'){
       steps {
-        sh 'docker kill $(docker ps -a -q)'
-        sh 'docker rm $(docker ps -a -q)'
+        sh '''
+        if [ $(docker ps -a -q) ]; then
+        docker kill $(docker ps -a -q)
+        docker rm $(docker ps -a -q)
+       fi;
+        '''
       }
     }
 
     stage('Cleaning') {
       steps{
           sh '''
-          docker rmi res/auditor
-          docker rmi res/musician
-          docker rmi res/validate-music
+          docker rmi res/auditor || true
+          docker rmi res/musician || true
+          docker rmi res/validate-music ||true
           '''
       }
     }
