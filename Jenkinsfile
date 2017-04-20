@@ -13,7 +13,7 @@ pipeline {
       }
     }
 
-    stage('Cleaning') {
+    stage('Pre-Cleaning') {
       steps{
           sh '''
           docker rmi res/auditor || true
@@ -35,6 +35,14 @@ pipeline {
       steps {
         sh 'docker run --name res_validation -v /var/run/docker.sock:/var/run/docker.sock res/validate-music'
       }
+    }
+    stage('Terminating') {
+    steps {
+    sh '''
+       docker kill $(docker ps -a -q) || true
+       docker rm $(docker ps -a -q) || true
+    '''
+    }
     }
   }
 }
